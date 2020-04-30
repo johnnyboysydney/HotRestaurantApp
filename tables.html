@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+    <style>
+        .title {
+            background-color:#d3d3d3;
+            border-radius: 25px;
+            padding-bottom: 64px;
+        }
+
+        .card-pad {
+            margin-top: 20px;
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+        #reserve a {
+          color: #d3d3d3!important;
+          background-color: grey;
+          padding:10px;
+          border: 1px solid black;
+          border-radius: 10%;
+        }
+        #home a {
+          color: #d3d3d3!important;
+          background-color: grey;
+          padding:10px;
+          border: 1px solid black;
+          border-radius: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container title">
+        <i class="fas fa-fire"></i>
+        <h1 class="text-center">Hot Restaurant </h1>
+        <hr>
+        <h2 class="text-center">Make you reservation</h2>
+     <div class="text-center">
+        <button type="button" class="btn btn-lg" id="reserve"><a href="/reservation">Make reservation</a></button>
+        <button type="button" class="btn btn-lg" id="home"><a href="/">Home</a></button>
+     </div>
+    </div>
+    <div id="tables">
+
+
+    </div>
+    <div id="waitList">
+
+    </div>
+
+    <div class="footer">
+        <a href="apilink"></a>
+    </div>
+
+    <script type="text/javascript">
+        $.get("/api/tables/", function(data) {
+          console.log(data);
+          if (data) {
+            data.forEach(function(reservation){
+              $("#tables").append($("<div>").text(reservation.id))
+              console.log(reservation)
+            })
+
+          } else {
+            $("#tables").text("There are no reservations available")
+          }
+        });  
+
+        $.get("/api/waitlist/", function(data) {
+          console.log(data);
+          if (data) {
+            data.forEach(function(reservation){
+              $("#waitList").append($("<div>").text(reservation.id))
+              console.log(reservation)
+            })
+          }
+        });  
+    </script>
+</body>
+</html>

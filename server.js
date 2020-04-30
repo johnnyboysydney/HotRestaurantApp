@@ -1,7 +1,7 @@
 // Declaring variables and dependancies
 // =============================================================
 const path = require("path");
-var express = require("express");
+const express = require("express");
 const index = ("./index.js")
 
 let reservations = [];
@@ -22,8 +22,6 @@ app.use(express.json());
 app.post("/api/table", function (req, res) {
     var newTable = req.body;
   
-    newTable.routeName = newTable.name.replace(/\s+/g, "").toLowerCase();
-  
     console.log(newTable);
   
     if (reservations.length < 5) {
@@ -31,7 +29,7 @@ app.post("/api/table", function (req, res) {
     } else {
       waitList.push(newTable);
     }
-  
+    console.log(reservations)
     res.json(newTable);
   });
   
@@ -50,12 +48,12 @@ app.get("/reservation", function (req, res) {
 });
 
 // Displays tables reserved
-app.get("/api/tablesapi", function (req, res) {
-    return res.json(index.reservations);
+app.get("/api/tables", function (req, res) {
+    return res.json(reservations);
 });
 
-app.get("/api/waitlistapi", function (req, res) {
-    return res.json(index.waitList);
+app.get("/api/waitlist", function (req, res) {
+    return res.json(waitList);
 });
 
 // Starts the server to begin listening
